@@ -58,24 +58,36 @@
       };
     };
 
+    // select all of the images that will slide in
     const sliderImages = document.querySelectorAll('.slide-in');
 
+    // runs every time the user scrolls
     function checkSlide(e) {
-      sliderImages.forEach(sliderImage => {
-        // half way through the image
-        const slideInAt = (window.scrollY + window.innerHeight) - sliderImage.height / 2;
+      sliderImages.forEach(slideImage => {
+        // halfway through the image
+        const slideInAt = (window.scrollY + window.innerHeight) - (slideImage.height / 2);
+        console.log(`slideInAt = ${slideInAt}`);
+
         // bottom of the image
-        const imageBottom = sliderImage.offsetTop + sliderImage.height;
-        const isHalfShown = slideInAt > sliderImage.offsetTop;
+        const imageBottom = slideImage.offsetTop + slideImage.height;
+        console.log(`imageBottom = ${imageBottom}`);
+
+        // is the bottom of the browser scrolled past 50% of the image?
+        const isHalfShown = slideInAt > slideImage.offsetTop;
+
+        // is the browser NOT scrolled past the image bottom?
         const isNotScrolledPast = window.scrollY < imageBottom;
+
+        // if the image is half shown AND we haven't scrolled past it
         if (isHalfShown && isNotScrolledPast) {
-          sliderImage.classList.add('active');
+          slideImage.classList.add('active');
         } else {
-          sliderImage.classList.remove('active');
+          slideImage.classList.remove('active');
         }
       });
     }
 
+    // listen to the window for the 'scroll' event
     window.addEventListener('scroll', debounce(checkSlide));
 
   </script>
