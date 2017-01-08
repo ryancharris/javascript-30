@@ -7,6 +7,25 @@
 </head>
 <body>
 <script>
+  const pressed = [];
+  const secretCode = 'wesbos';
+
+  window.addEventListener('keyup', (e) => {
+    // add the value to the 'pressed' array
+    pressed.push(e.key);
+
+    // trim the array to be the last X entries where
+    // X is equal to secretCode.length
+    pressed.splice(-secretCode.length - 1, pressed.length - secretCode.length);
+    console.log(pressed);
+
+    // check to see if the current array matches the secretCode
+    if (pressed.join('').includes(secretCode)) {
+      console.log('You got the secret code!');
+      cornify_add();
+    }
+  });
+
 </script>
 </body>
 </html>
